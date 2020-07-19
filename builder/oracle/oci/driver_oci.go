@@ -56,6 +56,7 @@ func (d *driverOCI) CreateInstance(ctx context.Context, publicKey string) (strin
 		CompartmentId:      &d.cfg.CompartmentID,
 		ImageId:            &d.cfg.BaseImageID,
 		Shape:              &d.cfg.Shape,
+                ShapeConfig:        &d.cfg.ShapeConfig,
 		SubnetId:           &d.cfg.SubnetID,
 		Metadata:           metadata,
 	}

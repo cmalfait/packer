@@ -19,6 +19,7 @@ import (
 	"github.com/hashicorp/packer/packer"
 	"github.com/hashicorp/packer/template/interpolate"
 	ocicommon "github.com/oracle/oci-go-sdk/common"
+        ocicore "github.com/oracle/oci-go-sdk/core"
 	ociauth "github.com/oracle/oci-go-sdk/common/auth"
 )
 
@@ -58,6 +59,7 @@ type Config struct {
 	// Image
 	BaseImageID string `mapstructure:"base_image_ocid"`
 	Shape       string `mapstructure:"shape"`
+        ShapeConfig ocicore.LaunchInstanceShapeConfigDetails `mapstructure:"shape_config"`
 	ImageName   string `mapstructure:"image_name"`
 
 	// Instance
@@ -241,6 +243,11 @@ func (c *Config) Prepare(raws ...interface{}) error {
 		errs = packer.MultiErrorAppend(
 			errs, errors.New("'shape' must be specified"))
 	}
+
+//      if c.ShapeConfig == "" {
+//              errs = packer.MultiErrorAppend(
+//                      errs, errors.New("'shape_config' must be specified"))
+//      }
 
 	if c.SubnetID == "" {
 		errs = packer.MultiErrorAppend(
